@@ -327,6 +327,7 @@
       clip-path: polygon(0 100%, 100% 100%, 50% 0);
       background: #f7a5b3;
     }
+    /* FIX: Adjusted the letter position and animation */
     .letter {
       position: absolute;
       top: 10px;
@@ -336,15 +337,18 @@
       background-color: white;
       border-radius: 8px;
       padding: 15px;
-      transform: translateY(0) scale(1);
-      transition: transform 1.5s ease-in-out, opacity 1s ease-in-out; /* Slower and smoother */
+      transform: translateY(0);
+      transition: transform 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       z-index: 2;
       opacity: 0;
       pointer-events: none;
+      white-space: pre-wrap;
+      line-height: 1.6;
+      overflow: auto; /* Allow scrolling for long letters */
     }
     .envelope.open .letter {
-      transform: translateY(-150px) scale(0.9);
+      transform: translateY(-200px); /* Adjusted to go higher */
       opacity: 1;
       pointer-events: auto;
     }
@@ -387,7 +391,7 @@
   <div class="container">
     <header>
       <h1>Sweet 18 Letters ❤️</h1>
-      <p class="lead">Click any number to open that letter.</p>
+      <p class="lead">Click on any number to open the letter.</p>
     </header>
 
     <main>
@@ -495,7 +499,8 @@ Bunny 💖
           envelope.classList.add('open');
         }, 50); // Small delay for effect
         
-        setTimeout(openLetterInModal, 2000); // Increased time for slower animation
+        // FIX: Increased the delay to allow the letter animation to complete fully
+        setTimeout(openLetterInModal, 2000); 
     }
 
     function openLetterInModal() {
